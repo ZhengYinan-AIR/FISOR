@@ -8,17 +8,16 @@ import yaml
 from ml_collections import config_flags
 import wandb
 from tqdm.auto import trange  # noqa
-import gymnasium as gym
+import gym
 from env.env_list import env_list
-from env.point_robot import PointRobot
 from jaxrl5.wrappers import wrap_gym
 from jaxrl5.agents import FISOR
 from jaxrl5.data.dsrl_datasets import DSRLDataset
-from jaxrl5.evaluation import evaluate, evaluate_pr
+from jaxrl5.evaluation import evaluate
 
 
 FLAGS = flags.FLAGS
-flags.DEFINE_integer('env_id', 30, 'Choose env')
+flags.DEFINE_integer('env_id', 0, 'Choose env')
 flags.DEFINE_string('experiment_name', '', 'experiment name for wandb')
 config_flags.DEFINE_config_file(
     "config",
@@ -27,22 +26,29 @@ config_flags.DEFINE_config_file(
     lock_config=False,
 )
 
+def get_imitation_data(env_name):
+    assert os.path.exists("env/imitation_data")
+    files = os.listdir("env/imitation_data")
+    hdf5_files = []
+    for file in files:
+        if file.endswith('.hdf5'):
+            hdf5_files.append(file)
+
+    for file in hdf5_files:
+        if env_name in file:
+            return os.path.join("env/imitation_data", file)
 
 def call_main(details):
     wandb.init(project=details['project'], name=details['experiment_name'], group=details['group'])
     wandb.config.update(details)
-
-    if details['env_name'] == 'PointRobot':
-        assert details['dataset_kwargs']['pr_data'] is not None, "No data for Point Robot"
-        env = eval(details['env_name'])(id=0, seed=0)
-        env_max_steps = env._max_episode_steps
-        ds = DSRLDataset(env, critic_type=details['agent_kwargs']['critic_type'], data_location=details['dataset_kwargs']['pr_data'])
-    else:
-        env = gym.make(details['env_name'])
-        ds = DSRLDataset(env, critic_type=details['agent_kwargs']['critic_type'], cost_scale=details['dataset_kwargs']['cost_scale'])
-        env_max_steps = env._max_episode_steps
-        env = wrap_gym(env, cost_limit=details['agent_kwargs']['cost_limit'])
-        ds.normalize_returns(env.max_episode_reward, env.min_episode_reward, env_max_steps)
+        
+    env = gym.make(details['env_name'])
+    if details['agent_kwargs']['actor_objective'] == "imitation":
+        imitation_data = get_imitation_data(details['env_name'])
+    ds = DSRLDataset(env, critic_type=details['agent_kwargs']['critic_type'], cost_scale=details['dataset_kwargs']['cost_scale'], data_location=imitation_data)
+    env_max_steps = env._max_episode_steps
+    env = wrap_gym(env, cost_limit=details['agent_kwargs']['cost_limit'])
+    ds.normalize_returns(env.max_episode_reward, env.min_episode_reward, env_max_steps)
     ds.seed(details["seed"])
 
     config_dict = dict(details['agent_kwargs'])
@@ -66,12 +72,8 @@ def call_main(details):
         if i % details['eval_interval'] == 0:
             agent.save(f"./results/{details['group']}/{details['experiment_name']}", save_time)
             save_time += 1
-            if details['env_name'] == 'PointRobot':
-                eval_info = evaluate_pr(agent, env, details['eval_episodes'])
-            else:
-                eval_info = evaluate(agent, env, details['eval_episodes'])
-            if details['env_name'] != 'PointRobot':
-                eval_info["normalized_return"], eval_info["normalized_cost"] = env.get_normalized_score(eval_info["return"], eval_info["cost"])
+            eval_info = evaluate(agent, env, details['eval_episodes'])
+            eval_info["normalized_return"], eval_info["normalized_cost"] = env.get_normalized_score(eval_info["return"], eval_info["cost"])
             wandb.log({f"eval/{k}": v for k, v in eval_info.items()}, step=i)
 
 
@@ -88,15 +90,6 @@ def main(_):
                                 + str(parameters['agent_kwargs']['N']) + '_' \
                                 + parameters['agent_kwargs']['extract_method'] if FLAGS.experiment_name == '' else FLAGS.experiment_name
     parameters['experiment_name'] += '_' + str(datetime.date.today()) + '_' + str(parameters['seed']) 
-
-    if parameters['env_name'] == 'PointRobot':
-        parameters['max_steps'] = 100001
-        parameters['batch_size'] = 1024
-        parameters['eval_interval'] = 25000
-        parameters['agent_kwargs']['cost_temperature'] = 2
-        parameters['agent_kwargs']['reward_temperature'] = 5
-        parameters['agent_kwargs']['cost_ub'] = 150
-        parameters['agent_kwargs']['N'] = 8
 
     print(parameters)
 

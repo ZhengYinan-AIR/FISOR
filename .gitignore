@@ -16,3 +16,4 @@ results/
 *.png
 
 .vscode
+imitation_data/

@@ -1,5 +1,5 @@
-import gymnasium as gym
-from gymnasium.wrappers.flatten_observation import FlattenObservation
+import gym
+from gym.wrappers.flatten_observation import FlattenObservation
 from jaxrl5.wrappers.single_precision import SinglePrecision
 
 

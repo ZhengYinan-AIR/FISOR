@@ -11,5 +11,4 @@ scipy >= 1.6.0
 wandb >= 0.12.14
 tensorflow-probability >= 0.17.0
 # dmcgym @ git+https://github.com/ikostrikov/dmcgym
-moviepy
-imageio
+numba

@@ -480,6 +480,18 @@ class FISOR(Agent):
             safe_weights = safe_condition * jnp.clip(reward_exp_adv, 0, 100)
             
             weights = unsafe_weights + safe_weights
+        elif agent.actor_objective == "imitation":
+            eps = 0. if agent.critic_type != 'qc' else 0.
+            
+            unsafe_condition = jnp.where( vc >  0. - eps, 1, 0) * jnp.where((qc-vc)< 0., 1, 0)
+            safe_condition = jnp.where(vc <= 0. - eps, 1, 0) * jnp.where(qc<=0. - eps, 1, 0)
+            
+            cost_exp_adv = jnp.exp((vc-qc) * agent.cost_temperature)
+
+            unsafe_weights = unsafe_condition * jnp.clip(cost_exp_adv, 1, agent.cost_ub) ## ignore vc >0, qc>vc
+            safe_weights = safe_condition * agent.reward_temperature
+            
+            weights = unsafe_weights + safe_weights
         elif agent.actor_objective == "bc":
             weights = jnp.ones(qc.shape)
         else:
