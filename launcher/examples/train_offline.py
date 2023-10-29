@@ -45,7 +45,9 @@ def call_main(details):
     env = gym.make(details['env_name'])
     if details['agent_kwargs']['actor_objective'] == "imitation":
         imitation_data = get_imitation_data(details['env_name'])
-    ds = DSRLDataset(env, critic_type=details['agent_kwargs']['critic_type'], cost_scale=details['dataset_kwargs']['cost_scale'], data_location=imitation_data)
+        ds = DSRLDataset(env, critic_type=details['agent_kwargs']['critic_type'], cost_scale=details['dataset_kwargs']['cost_scale'], data_location=imitation_data)
+    else:
+        ds = DSRLDataset(env, critic_type=details['agent_kwargs']['critic_type'], cost_scale=details['dataset_kwargs']['cost_scale'])
     env_max_steps = env._max_episode_steps
     env = wrap_gym(env, cost_limit=details['agent_kwargs']['cost_limit'])
     ds.normalize_returns(env.max_episode_reward, env.min_episode_reward, env_max_steps)
