@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# huge file
+
+# log
+wandb/
+
+results/
+
+*.png
+
+data/
+.vscode
