@@ -3,7 +3,7 @@ import numpy as np
 
 def get_config(config_string):
     base_real_config = dict(
-        project='FISOR-metadrive',
+        project='FISOR',
         seed=1,
         max_steps=1000001,
         eval_episodes=20,

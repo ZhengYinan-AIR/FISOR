@@ -32,8 +32,8 @@ def main(_):
     env = gym.make(env_name)
     dataset_dict = env.get_dataset()
 
-    if not os.path.exists("env/imitation_data"):
-        os.makedirs("env/imitation_data")
+    if not os.path.exists("data"):
+        os.makedirs("data")
 
     keys = [
         'observations', 'next_observations', 'actions', 'rewards', 'costs', 'terminals',
@@ -79,7 +79,7 @@ def main(_):
     labels = fig1.get_xticklabels() + fig1.get_yticklabels()
     [label.set_fontname('Times New Roman') for label in labels]
 
-    output_name = "env/imitation_data/" + env_name + "-"+ str(reward_min)
+    output_name = "data/" + env_name + "-"+ str(reward_min)
     output_path = output_name + '.png'
     plt.savefig(output_path, dpi=300)
 

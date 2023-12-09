@@ -16,4 +16,4 @@ results/
 *.png
 
 .vscode
-imitation_data/
+*.hdf5

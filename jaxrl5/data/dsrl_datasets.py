@@ -1,3 +1,4 @@
+import os
 import gym
 import dsrl
 import numpy as np
@@ -6,7 +7,7 @@ import h5py
 
 
 class DSRLDataset(Dataset):
-    def __init__(self, env: gym.Env, clip_to_eps: bool = True, eps: float = 1e-5, critic_type="qc", data_location=None, cost_scale=1.):
+    def __init__(self, env: gym.Env, clip_to_eps: bool = True, eps: float = 1e-5, critic_type="qc", data_location=None, cost_scale=1., ratio = 1.0):
         # imitation
         if data_location is not None:
             dataset_dict = env.get_dataset(h5path=data_location)
@@ -22,7 +23,14 @@ class DSRLDataset(Dataset):
             del dataset_dict['timeouts']
         else:
             # DSRL
-            dataset_dict = env.get_dataset()
+            if ratio == 1.0:
+                dataset_dict = env.get_dataset()
+            else:
+                _, dataset_name = os.path.split(env.dataset_url)
+                file_list = dataset_name.split('-')
+                ratio_num = int(float(file_list[-1].split('.')[0]) * ratio)
+                dataset_ratio = '-'.join(file_list[:-1]) + '-' + str(ratio_num) + '-' + str(ratio) + '.hdf5'
+                dataset_dict = env.get_dataset(os.path.join('data', dataset_ratio))
             print('max_episode_reward', env.max_episode_reward, 
                 'min_episode_reward', env.min_episode_reward,
                 'mean_episode_reward', env._max_episode_steps * np.mean(dataset_dict['rewards']))
