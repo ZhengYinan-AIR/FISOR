@@ -13,8 +13,6 @@ wandb/
 
 results/
 
-*.png
-
 .vscode
 
 *.hdf5
