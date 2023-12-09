@@ -7,6 +7,9 @@ python launcher/examples/train_offline.py --env_id 0 --config configs/train_conf
 
 # data quntity
 # python launcher/examples/train_offline.py --env_id 6 --config configs/train_config.py:fisor --ratio 0.1
+# python launcher/examples/train_offline.py --env_id 6 --config configs/train_config.py:fisor --ratio 0.5
 
 # imitation
 # python launcher/examples/train_offline.py --env_id 3 --config configs/train_config.py:fisor_imitation
+# python launcher/examples/train_offline.py --env_id 4 --config configs/train_config.py:fisor_imitation
+# python launcher/examples/train_offline.py --env_id 5 --config configs/train_config.py:fisor_imitation
