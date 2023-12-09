@@ -31,7 +31,7 @@ where ``env_id`` serves as an index for the [list of environments](https://githu
 ## Data Quantity Experiments
 We can run [filter_data.py](https://github.com/ZhengYinan-AIR/FISOR/blob/master/filter_data.py) to generate offline data of varying volumes. We also can download the necessary offline datasets ([Download link](https://cloud.tsinghua.edu.cn/d/591cf8fd6d8649a89df4/)). Then run
 ``` Bash
-python launcher/examples/train_offline.py --env_id 0 --config configs/train_config.py:fisor --ratio 0.1
+python launcher/examples/train_offline.py --env_id 17 --config configs/train_config.py:fisor --ratio 0.1
 ```
 where ``ratio`` refers to the proportion of the processed data to the original dataset.
 
