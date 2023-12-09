@@ -36,7 +36,7 @@ class DSRLDataset(Dataset):
                 file_list = dataset_name.split('-')
                 ratio_num = int(float(file_list[-1].split('.')[0]) * ratio)
                 dataset_ratio = '-'.join(file_list[:-1]) + '-' + str(ratio_num) + '-' + str(ratio) + '.hdf5'
-                dataset_dict = env.get_dataset(dataset_ratio)
+                dataset_dict = env.get_dataset(os.path.join('data', dataset_ratio))
             print('max_episode_reward', env.max_episode_reward, 
                 'min_episode_reward', env.min_episode_reward,
                 'mean_episode_reward', env._max_episode_steps * np.mean(dataset_dict['rewards']))
