@@ -70,3 +70,5 @@ Please also cite the JAXRL repo as well if you use this repo
   year = {2021}
 }
 ```
+
+python launcher/viz/viz_map.py --model_location 'results/PointRobot/ddpm_feasibility_hj_N16_minqc_2023-12-09_s54_486'

@@ -476,7 +476,7 @@ class FISOR(Agent):
             cost_exp_adv = jnp.exp((vc-qc) * agent.cost_temperature)
             reward_exp_adv = jnp.exp((q - v) * agent.reward_temperature)
             
-            unsafe_weights = unsafe_condition * jnp.clip(cost_exp_adv, 1, agent.cost_ub) ## ignore vc >0, qc>vc
+            unsafe_weights = unsafe_condition * jnp.clip(cost_exp_adv, 0, agent.cost_ub) ## ignore vc >0, qc>vc
             safe_weights = safe_condition * jnp.clip(reward_exp_adv, 0, 100)
             
             weights = unsafe_weights + safe_weights

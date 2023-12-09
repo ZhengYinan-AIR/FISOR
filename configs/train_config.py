@@ -3,8 +3,8 @@ import numpy as np
 
 def get_config(config_string):
     base_real_config = dict(
-        project='FISOR-mainresult',
-        seed=1,
+        project='FISOR',
+        seed=-1,
         max_steps=1000001,
         eval_episodes=20,
         batch_size=2048, #Actor batch size x 2 (so really 1024), critic is fixed to 256
@@ -18,7 +18,7 @@ def get_config(config_string):
 
     base_data_config = dict(
         cost_scale=25,
-        pr_data='env/point_robot-expert-random-100k.h5py', # The location of point_robot data
+        pr_data='data/point_robot-expert-random-100k.hdf5', # The location of point_robot data
     )
 
     possible_structures = {

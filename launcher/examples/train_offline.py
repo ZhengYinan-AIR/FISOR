@@ -1,11 +1,12 @@
 import os
 import sys
 sys.path.append('.')
+import random
 import numpy as np
 from absl import app, flags
 import datetime
 import yaml
-from ml_collections import config_flags
+from ml_collections import config_flags, ConfigDict
 import wandb
 from tqdm.auto import trange  # noqa
 import gymnasium as gym
@@ -15,10 +16,13 @@ from jaxrl5.wrappers import wrap_gym
 from jaxrl5.agents import FISOR
 from jaxrl5.data.dsrl_datasets import DSRLDataset
 from jaxrl5.evaluation import evaluate, evaluate_pr
+import json
 
 
 FLAGS = flags.FLAGS
 flags.DEFINE_integer('env_id', 30, 'Choose env')
+flags.DEFINE_float('ratio', 1.0, 'dataset ratio')
+flags.DEFINE_string('project', '', 'project name for wandb')
 flags.DEFINE_string('experiment_name', '', 'experiment name for wandb')
 config_flags.DEFINE_config_file(
     "config",
@@ -27,10 +31,15 @@ config_flags.DEFINE_config_file(
     lock_config=False,
 )
 
+def to_dict(config):
+    if isinstance(config, ConfigDict):
+        return {k: to_dict(v) for k, v in config.items()}
+    return config
+
 
 def call_main(details):
-    wandb.init(project=details['project'], name=details['experiment_name'], group=details['group'])
-    wandb.config.update(details)
+    details['agent_kwargs']['cost_scale'] = details['dataset_kwargs']['cost_scale']
+    wandb.init(project=details['project'], name=details['experiment_name'], group=details['group'], config=details['agent_kwargs'])
 
     if details['env_name'] == 'PointRobot':
         assert details['dataset_kwargs']['pr_data'] is not None, "No data for Point Robot"
@@ -39,7 +48,7 @@ def call_main(details):
         ds = DSRLDataset(env, critic_type=details['agent_kwargs']['critic_type'], data_location=details['dataset_kwargs']['pr_data'])
     else:
         env = gym.make(details['env_name'])
-        ds = DSRLDataset(env, critic_type=details['agent_kwargs']['critic_type'], cost_scale=details['dataset_kwargs']['cost_scale'])
+        ds = DSRLDataset(env, critic_type=details['agent_kwargs']['critic_type'], cost_scale=details['dataset_kwargs']['cost_scale'], ratio=details['ratio'])
         env_max_steps = env._max_episode_steps
         env = wrap_gym(env, cost_limit=details['agent_kwargs']['cost_limit'])
         ds.normalize_returns(env.max_episode_reward, env.min_episode_reward, env_max_steps)
@@ -49,6 +58,7 @@ def call_main(details):
     config_dict['env_max_steps'] = env_max_steps
 
     model_cls = config_dict.pop("model_cls") 
+    config_dict.pop("cost_scale") 
     agent = globals()[model_cls].create(
         details['seed'], env.observation_space, env.action_space, **config_dict
     )
@@ -77,9 +87,10 @@ def call_main(details):
 
 def main(_):
     parameters = FLAGS.config
-    np.random.seed(parameters['seed'])
-
+    if FLAGS.project != '':
+        parameters['project'] = FLAGS.project
     parameters['env_name'] = env_list[FLAGS.env_id]
+    parameters['ratio'] = FLAGS.ratio
     parameters['group'] = parameters['env_name']
 
     parameters['experiment_name'] = parameters['agent_kwargs']['sampling_method'] + '_' \
@@ -87,7 +98,7 @@ def main(_):
                                 + parameters['agent_kwargs']['critic_type'] + '_N' \
                                 + str(parameters['agent_kwargs']['N']) + '_' \
                                 + parameters['agent_kwargs']['extract_method'] if FLAGS.experiment_name == '' else FLAGS.experiment_name
-    parameters['experiment_name'] += '_' + str(datetime.date.today()) + '_' + str(parameters['seed']) 
+    parameters['experiment_name'] += '_' + str(datetime.date.today()) + '_s' + str(parameters['seed']) + '_' + str(random.randint(0,1000))
 
     if parameters['env_name'] == 'PointRobot':
         parameters['max_steps'] = 100001
@@ -102,8 +113,8 @@ def main(_):
 
     if not os.path.exists(f"./results/{parameters['group']}/{parameters['experiment_name']}"):
         os.makedirs(f"./results/{parameters['group']}/{parameters['experiment_name']}")
-    with open(f"./results/{parameters['group']}/{parameters['experiment_name']}/config.yaml", "w") as f:
-        yaml.dump(dict(parameters), f, default_flow_style=False, allow_unicode=True)
+    with open(f"./results/{parameters['group']}/{parameters['experiment_name']}/config.json", "w") as f:
+        json.dump(to_dict(parameters), f, indent=4)
     
     call_main(parameters)
 

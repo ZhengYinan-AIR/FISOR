@@ -3,8 +3,9 @@ import sys
 sys.path.append('.')
 from absl import app, flags
 import re
+import json
 import numpy as np
-from ml_collections import config_flags
+from ml_collections import config_flags, ConfigDict
 import matplotlib.pyplot as plt
 from matplotlib import colors
 import jax
@@ -13,15 +14,13 @@ from jaxrl5.agents import FISOR
 
 
 FLAGS = flags.FLAGS
-flags.DEFINE_integer('env_id', 30, 'Choose env')
-flags.DEFINE_integer('seed', -1, '')
-flags.DEFINE_string('experiment_name', '', 'experiment name for wandb')
-config_flags.DEFINE_config_file(
-    "config",
-    "configs/train_config.py:fisor",
-    "File path to the training hyperparameter configuration.",
-    lock_config=False,
-)
+flags.DEFINE_string('model_location', '', 'model location for point robot model')
+
+
+def to_config_dict(d):
+    if isinstance(d, dict):
+        return ConfigDict({k: to_config_dict(v) for k, v in d.items()})
+    return d
 
 hazard_position_list = [np.array([0.4, -1.2]), np.array([-0.4, 1.2])]
 
@@ -190,7 +189,8 @@ def plot_pic(env, agent, model_location):
 
 def load_diffusion_model(model_location):
 
-    cfg = FLAGS.config
+    with open(os.path.join(model_location, 'config.json'), 'r') as file:
+        cfg = to_config_dict(json.load(file))
 
     env = eval('PointRobot')(id=0, seed=0)
 
@@ -227,10 +227,9 @@ def load_diffusion_model(model_location):
 
 def main(_):
 
-    diffusion_model_location = 'results/PointRobot/ddpm_feasibility_hj_N16_minqc_2023-10-29_208' # expert_random
-    env, diffusion_agent = load_diffusion_model(diffusion_model_location)
+    env, diffusion_agent = load_diffusion_model(FLAGS.model_location)
     
-    plot_pic(env, diffusion_agent, diffusion_model_location)
+    plot_pic(env, diffusion_agent, FLAGS.model_location)
 
 
 if __name__ == '__main__':

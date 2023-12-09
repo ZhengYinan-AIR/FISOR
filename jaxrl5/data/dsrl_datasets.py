@@ -1,3 +1,4 @@
+import os
 import gymnasium as gym
 import dsrl
 import numpy as np
@@ -6,12 +7,13 @@ import h5py
 
 
 class DSRLDataset(Dataset):
-    def __init__(self, env: gym.Env, clip_to_eps: bool = True, eps: float = 1e-5, critic_type="qc", data_location=None, cost_scale=1.):
+    def __init__(self, env: gym.Env, clip_to_eps: bool = True, eps: float = 1e-5, critic_type="qc", data_location=None, cost_scale=1., ratio = 1.0):
 
         if data_location is not None:
+            # Point Robot
             dataset_dict = {}
             print('=========Data loading=========')
-            print('Load data from:', data_location)
+            print('Load point robot data from:', data_location)
             f = h5py.File(data_location, 'r')
             dataset_dict["observations"] = np.array(f['state'])
             dataset_dict["actions"] = np.array(f['action'])
@@ -27,19 +29,26 @@ class DSRLDataset(Dataset):
 
         else:
             # DSRL
-            dataset_dict = env.get_dataset()
+            if ratio == 1.0:
+                dataset_dict = env.get_dataset()
+            else:
+                _, dataset_name = os.path.split(env.dataset_url)
+                file_list = dataset_name.split('-')
+                ratio_num = int(float(file_list[-1].split('.')[0]) * ratio)
+                dataset_ratio = '-'.join(file_list[:-1]) + '-' + str(ratio_num) + '-' + str(ratio) + '.hdf5'
+                dataset_dict = env.get_dataset(dataset_ratio)
             print('max_episode_reward', env.max_episode_reward, 
                 'min_episode_reward', env.min_episode_reward,
                 'mean_episode_reward', env._max_episode_steps * np.mean(dataset_dict['rewards']))
             print('max_episode_cost', env.max_episode_cost, 
                 'min_episode_cost', env.min_episode_cost,
                 'mean_episode_cost', env._max_episode_steps * np.mean(dataset_dict['costs']))
+            print('data_num', dataset_dict['actions'].shape[0])
             dataset_dict['dones'] = np.logical_or(dataset_dict["terminals"],
                                                 dataset_dict["timeouts"]).astype(np.float32)
             del dataset_dict["terminals"]
             del dataset_dict['timeouts']
 
-            
             if critic_type == "hj":
                 dataset_dict['costs'] = np.where(dataset_dict['costs']>0, 1*cost_scale, -1)
 
