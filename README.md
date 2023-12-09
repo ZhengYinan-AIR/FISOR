@@ -3,6 +3,9 @@
 The official implementation of FISOR, which **represents a pioneering effort in considering hard constraints (Hamilton-Jacobi Reachability) within the safe offline RL setting**. FISOR transform the original tightly-coupled safety-constrained offline RL problem into
 three decoupled simple supervised objectives: 1) Offline identification of the largest feasible region; 2) Optimal advantage learning; and 3) Optimal policy extraction via
 guided diffusion model, enhancing both performance and stability.
+<p float="left">
+<img src="assets/framework.jpg" width="800">
+</p>
 
 ## Branches Overview
 | Branch name 	| Usage 	|
