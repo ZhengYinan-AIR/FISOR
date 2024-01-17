@@ -1,8 +1,11 @@
 # Feasibility-Guided Safe Offline Reinforcement Learning
 
-The official implementation of FISOR, which **represents a pioneering effort in considering hard constraints (Hamilton-Jacobi Reachability) within the safe offline RL setting**. FISOR transform the original tightly-coupled safety-constrained offline RL problem into
-three decoupled simple supervised objectives: 1) Offline identification of the largest feasible region; 2) Optimal advantage learning; and 3) Optimal policy extraction via
-guided diffusion model, enhancing both performance and stability.
+The official implementation of FISOR ([https://openreview.net/forum?id=j5JvZCaDM0](https://openreview.net/forum?id=j5JvZCaDM0)), which **represents a pioneering effort in considering hard constraints (Hamilton-Jacobi Reachability) within the safe offline RL setting**. FISOR transform the original tightly-coupled safety-constrained offline RL problem into
+three decoupled simple supervised objectives: 
+
+- Offline identification of the largest feasible region;
+- Optimal advantage learning;
+- Optimal policy extraction via time-independent classifier-guided diffusion model, enhancing both performance and stability.
 <p float="left">
 <img src="assets/framework.jpg" width="800">
 </p>
@@ -52,11 +55,12 @@ Then visualize the feasible region by running [viz_map.py](https://github.com/Zh
 
 If you find our code and paper can help, please cite our paper as:
 ```
-@article{zheng2023feasibility,
+@inproceedings{zheng2024feasibility,
   title={Feasibility-Guided Safe Offline Reinforcement Learning},
   author={Zheng, Yinan and Li, Jianxiong and Yu, Dongjie and Yang, Yujie and Li, Shengbo Eben and Zhan, Xianyuan and Liu, Jingjing},
-  journal={openreview},
-  year={2023}
+  booktitle={The Twelfth International Conference on Learning Representations},
+  year={2024},
+  url={https://openreview.net/forum?id=j5JvZCaDM0}
 }
 ```
 
