@@ -24,19 +24,9 @@
     <link rel="stylesheet" href="./assets/css/bulma-slider.min.css">
     <link rel="stylesheet" href="./assets/css/fontawesome.all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-    <link rel="stylesheet" href="./assets/css/index.css">
-    <link rel="stylesheet" href="./assets/css/leaderboard.css">
-  
-    <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
-    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
-    <script type="text/javascript" src="assets/js/sort-table.js" defer></script>
-  
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script defer src="./assets/js/fontawesome.all.min.js"></script>
-    <script src="./assets/js/bulma-carousel.min.js"></script>
-    <script src="./assets/js/bulma-slider.min.js"></script>
-    <script src="./assets/js/index.js"></script>
-    <script src="./assets/js/question_card.js"></script>
+
 </head>
 
 <body>
@@ -59,15 +49,6 @@
             <a class="navbar-item" href="https://github.com/ZhengYinan-AIR/OMIGA">
                 <b>OMIGA</b> <p style="font-size:18px; display: inline; margin-left: 5px;"></p>
             </a>
-            <!-- <a class="navbar-item" href="https://osu-nlp-group.github.io/TableLlama/">
-                TableLlama 
-            <a class="navbar-item" href="https://osu-nlp-group.github.io/MagicBrush/">
-                MagicBrush
-            </a>
-            <a class="navbar-item" href="https://osu-nlp-group.github.io/Mind2Web/">
-                Mind2Web
-            </a> -->
-            <!-- </a> -->
             </a>
             </div>
         </div>
@@ -135,7 +116,6 @@
                     <a href="https://cloud.tsinghua.edu.cn/d/0d2939f7f7234cf68f1d/"
                         class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
-                        <!-- <i class="far fa-images"></i> -->
                         <p style="font-size:18px">🔗</p>
                         <!-- 🔗 -->
                     </span>
@@ -171,21 +151,9 @@
 
 <section class="hero teaser">
 <div class="container is-max-desktop">
-    <!-- <div class="hero-body">
-    <img src="static/images/tease_scores.png" alt="Examples from the dataset"/>
-    <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
-        free-viewpoint
-        portraits.
-    </h2>
-    </div> -->
-    <!-- <div class="box m-5"> --> 
         <div class="content has-text-centered">
         <img src="./assets/framework.jpg" alt="geometric reasoning" width="100%"/>
-        <!-- <p> <b><i>Figure 1:</i></b> The main categories of our EgoThink benchmark to comprehensively assess the capability of thinking from a first-person perspective. </p> -->
         </div>
-    <!-- </div> -->
-    <!-- </div> -->
 </div>
 </section>
 
@@ -203,6 +171,10 @@
         </div>      
           <h2 class="title is-3">Abstraction</h2>
           <div class="content has-text-justified">
+            <p><strong>
+                How can we train a diffusion policy to satisfy hard constraints using only supervised objectives, without employing iterative Lagrangian-based methods?
+            </strong>
+            </p>
             <p>
                 Safe offline reinforcement learning is a promising way to bypass risky online interactions towards safe policy learning. Most existing methods only enforce soft constraints, i.e., constraining safety violations in expectation below thresholds predetermined. This can lead to potentially unsafe outcomes, thus unacceptable in safety-critical scenarios.
                 An alternative is to enforce the hard constraint of zero violation. However, this can be challenging in offline setting, as it needs to strike the right balance among three highly intricate and correlated aspects: safety constraint satisfaction, reward maximization, and behavior regularization imposed by offline datasets.
@@ -215,5 +187,165 @@
       <!--/ Abstract. -->
   </div>
 </section>
+
+<!-- Methods SECTION -->
+<section class="hero is-light is-small">
+    <div class="hero-body has-text-centered">
+      <h1 class="title is-1 mmmu">Methods</h1>
+    </div>
+  </section>
+
+
+<section class="section">
+    <div class="container">
+      <div class="columns is-centered has-text-centered">
+        <!-- <div class="column is-full-width has-text-centered"> -->
+        <div class="column is-four-fifths">
+            <h2 class="title is-3">Offline Identification of Feasibility</h2>
+          <div class="content has-text-justified">
+          <p>
+            We can predetermine the approximately largest feasible region using offline datasets, <b>without the need to train a policy</b>. Compared to the commonly used cost state-value function, our approach yields a lower approximation error.
+        </p>
+          <div class="content has-text-centered">
+            <img src="./assets/qh.jpg" alt="algebraic reasoning" class="center">
+            <p><b><i>Figure 1:</i></b> (a) Reach-avoid control task: the agent (red) aim to reach the goal (green) while avoiding hazards (blue). (b) Offline data distribution. (c)-(e) Comparisons with the  feasible region learned by feasible value 
+                {s|V*_h(s)&lt=0} and cost value {s|V*_c(s)&lt=1e-3}.</p>
+          </div>
+        </div>
+        </div>
+      </div>
+
+</section>    
+
+<section class="section">
+    <div class="container">
+      <div class="columns is-centered has-text-centered">
+        <!-- <div class="column is-full-width has-text-centered"> -->
+        <div class="column is-four-fifths">
+            <h2 class="title is-3">Feasibility-Guided Diffusion Model</h2>
+          <div class="content has-text-justified">
+          <p>
+            We propose a feasibility-dependent objective, i.e., 
+            <b>maximizing reward value within the feasible region while minimizing safety risks in the infeasible region</b>.
+            In FISOR, the optimal policy for the optimization problem can be derived in a special form of weighted behavior cloning.
+            Moreover, we propose a novel energy-guided sampling method that <b>does not require training a complicated time-dependent classifier</b> to simplify the training. <b>No more Lagrangian.</b>
+            
+            </p>
+          <div class="content has-text-centered">
+            <img src="./assets/framework.jpg" alt="algebraic reasoning" class="center">
+            <p><b><i>Figure 2:</i></b> Feasibility-guided diffusion model with time-independent classifier-guided sampling method.</p>
+          </div>
+        </div>
+        </div>
+      </div>
+
+</section>    
+
+<!-- RESULTS SECTION -->
+<section class="hero is-light is-small">
+    <div class="hero-body has-text-centered">
+      <h1 class="title is-1 mmmu">Experiment Results</h1>
+    </div>
+  </section>
+
+  
+
+<section class="section">
+    <div class="container">
+      <div class="columns is-centered has-text-centered">
+        <!-- <div class="column is-full-width has-text-centered"> -->
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Main Results</h2>
+          <div class="content has-text-centered">
+            <img src="./assets/mainresult.jpg" alt="algebraic reasoning" class="center">
+            <p><b><i>Table 1:</i></b> Normalized <a href="https://github.com/liuzuxin/DSRL">DSRL</a> benchmark results. Each value is averaged over 20 evaluation episodes and 3 seeds. <span style="color: #0000FF;">Blue</span>: Safe agents with the highest reward. <span style="color: #656565;">Gray</span>: Unsafe agents. <b>Bold</b>: safe agents whose normalized cost is smaller than 1.</p>
+          </div>
+        </div>
+      </div>
+
+</section>      
+
+<section class="section">
+    <div class="container">
+      <div class="columns is-centered has-text-centered">
+        <!-- <div class="column is-full-width has-text-centered"> -->
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Soft Constraint Under Different Cost Limits</h2>
+          <div class="content has-text-justified">
+          <p>
+            We evaluate the sensitivity of cost limit selection for soft-constraint-based methods to demonstrate the effectiveness of hard constraint. 
+            Results shows that most soft-constraint-based methods are highly sensitive to the value of cost limit. In some cases, choosing a small cost limit even leads to an increase in the final cost. ]
+            This shows that it is difficult for these methods to select the right cost limit to achieve the best performance, which requires task-specific tuning. 
+            In contrast, our algorithm, which considers hard constraints, does not encounter this issue and achieves superior results <b>using only one group of hyperparameters</b>.
+
+
+            </p>
+          <div class="content has-text-centered">
+            <img src="./assets/cost_limit.jpg" alt="algebraic reasoning" class="center">
+            <p><b><i>Figure 3:</i></b> Soft constraint sensitivity experiments for cost limit. </p>
+          </div>
+        </div>
+        </div>
+      </div>
+
+</section>  
+
+<section class="section">
+    <div class="container">
+      <div class="columns is-centered has-text-centered">
+        <!-- <div class="column is-full-width has-text-centered"> -->
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Data Quantity Sensitivity Experiment</h2>
+          <div class="content has-text-justified">
+          <p>
+            We select some competitive baselines that achieve relatively good safety and reward performances in Table 1 and train them with 1/2 and 1/10 of the data volume. 
+            FISOR still meets safety requirements and demonstrates more stable performance compared to other methods, although a reduction in data volume weakens FISOR's safety a little. 
+            We believe FISOR enjoys such good stability as it decouples the intricate training processes of safe offline RL, which greatly enhances training performances.
+        </p>
+          <div class="content has-text-centered">
+            <img src="./assets/datavolum.jpg" alt="algebraic reasoning" class="center">
+            <p><b><i>Figure 4:</i></b> Data quantity sensitivity experiment results. </p>
+          </div>
+        </div>
+        </div>
+      </div>
+
+</section>   
+
+<!-- @PAN TODO: bibtex -->
+<section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title is-3 has-text-centered">BibTeX</h2>
+      <pre><code>
+        @article{zheng2024feasibility,
+          title={Safe Offline Reinforcement Learning with Feasibility-Guided Diffusion Model},
+          author={Zheng, Yinan and Li, Jianxiong and Yu, Dongjie and Yang, Yujie and Li, Shengbo Eben and Zhan, Xianyuan and Liu, Jingjing},
+          booktitle={The Twelfth International Conference on Learning Representations},
+          year={2024},
+          url={https://openreview.net/forum?id=j5JvZCaDM0}
+        }
+  </code></pre>
+    </div>
+</section>
+  
+<footer class="footer">
+<!-- <div class="container"> -->
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+    <div class="column is-8">
+        <div class="content has-text-centered">
+        <p>
+            This website is website adapted from <a href="https://mmmu-benchmark.github.io/">MMMU</a>, licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        </div>
+    </div>
+    </div>
+<!-- </div> -->
+
+</footer>
+
 
 </body>
