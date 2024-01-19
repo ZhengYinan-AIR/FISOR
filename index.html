@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FISOR</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="utf-8">
+    <meta name="description"
+        content="Safe Offline Reinforcement Learning with Feasibility-Guided Diffusion Model">
+    <meta name="keywords" content="FISOR, Safety, Reinforcement Learning, Diffusion Model, Safe Offline Reinforcement Learning, Offline Reinforcement Learning, AI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Safe Offline Reinforcement Learning with Feasibility-Guided Diffusion Model</title>
+
+    <link rel="icon" href="./assets/icon.png">
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" href="./assets/css/bulma.min.css">
+    <link rel="stylesheet" href="./assets/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./assets/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./assets/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./assets/css/index.css">
+    <link rel="stylesheet" href="./assets/css/leaderboard.css">
+  
+    <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
+    <script type="text/javascript" src="assets/js/sort-table.js" defer></script>
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./assets/js/fontawesome.all.min.js"></script>
+    <script src="./assets/js/bulma-carousel.min.js"></script>
+    <script src="./assets/js/bulma-slider.min.js"></script>
+    <script src="./assets/js/index.js"></script>
+    <script src="./assets/js/question_card.js"></script>
+</head>
+
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        </a>
+    </div>
+    <div class="navbar-menu">
+        <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+            More Research
+            </a>
+            <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://github.com/ZhengYinan-AIR/OMIGA">
+                <b>OMIGA</b> <p style="font-size:18px; display: inline; margin-left: 5px;"></p>
+            </a>
+            <!-- <a class="navbar-item" href="https://osu-nlp-group.github.io/TableLlama/">
+                TableLlama 
+            <a class="navbar-item" href="https://osu-nlp-group.github.io/MagicBrush/">
+                MagicBrush
+            </a>
+            <a class="navbar-item" href="https://osu-nlp-group.github.io/Mind2Web/">
+                Mind2Web
+            </a> -->
+            <!-- </a> -->
+            </a>
+            </div>
+        </div>
+        </div>
+    
+    </div>
+</nav>
+
+      
+<section class="hero">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+        <div class="columns is-centered">
+            <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title is-bold">
+                <img src="./assets/icon.png" style="width:1em;vertical-align: middle" alt="Logo"/> 
+                <span class="mmmu" style="vertical-align: middle">FISOR</span>
+                </h1>
+            <h2 class="subtitle is-3 publication-subtitle">
+                Safe Offline Reinforcement Learning with Feasibility-Guided Diffusion Model
+                <!-- <br>
+                and Reasoning Benchmark for Expert AGI -->
+            </h2>
+            <div class="is-size-5 publication-authors">
+                <span class="author-block">Yinan Zheng*<sup style="color:#007bff;">†,1,2</sup>,</span>
+                <span class="author-block">Jiangxiong Li*<sup style="color:#007bff;">1,2</sup>,</span>
+                <span class="author-block">Dongjie Yu<sup style="color:#ed4b82;">3</sup>,</span>
+                <span class="author-block">Yujie Yang<sup style="color:#6fbf73;">2</sup>,</span><br>
+                <span class="author-block">Shengbo Eben Li<sup style="color:#6fbf73;">2</sup>,</span>
+                <span class="author-block">Xianyuan Zhan<sup style="color:#ffac33;">✉,1,4</sup>,</span>
+                <span class="author-block">Jingjing Liu<sup style="color:#007bff;">✉,1,2</sup>,</span>
+            </div>
+            
+            <br>
+            
+            <div class="is-size-5 publication-authors">
+                <span class="author-block"><sup style="color:#007bff;">1</sup>Institute for AI Industry Research (AIR), Tsinghua University</span><br>
+                <span class="author-block"><sup style="color:#6fbf73;">2</sup>School of Vehicle and Mobility, Tsinghua University</span><br>
+                <span class="author-block"><sup style="color:#ed4b82;">3</sup>Department of Computer Science, The University of Hong Kong</span><br>
+                <span class="author-block"><sup style="color:#ffac33;">4</sup>Shanghai Artificial Intelligence Laboratory</span></br>
+            </div>
+    
+            <br>
+            <div class="is-size-5 publication-authors">
+                <span class="author-block">*Equal contribution, ✉Corresponding author</span><br>
+                <span class="author-block">†Project Lead:</span>
+                <span class="author-block"><a href="mailto:zhengyn23@mails.tsinghua.edu.cn">zhengyn23@mails.tsinghua.edu.cn</a></span>
+            </div>
+            
+    
+            <div class="column has-text-centered">
+                <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                    <a href="https://openreview.net/forum?id=j5JvZCaDM0"
+                        class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                    </a>
+                </span>
+                <span class="link-block">
+                    <!-- @TODO: change links -->
+                    <a href="https://cloud.tsinghua.edu.cn/d/0d2939f7f7234cf68f1d/"
+                        class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <!-- <i class="far fa-images"></i> -->
+                        <p style="font-size:18px">🔗</p>
+                        <!-- 🔗 -->
+                    </span>
+                    <span>Dataset</span>
+                    </a>
+                </span>
+                <span class="link-block">
+                    <a href="https://github.com/ZhengYinan-AIR/FISOR"
+                        class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                    </a>
+                </span>
+
+                </div>
+    
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+<style>
+    .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 80%;
+    }
+</style>
+
+<section class="hero teaser">
+<div class="container is-max-desktop">
+    <!-- <div class="hero-body">
+    <img src="static/images/tease_scores.png" alt="Examples from the dataset"/>
+    <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
+        free-viewpoint
+        portraits.
+    </h2>
+    </div> -->
+    <!-- <div class="box m-5"> --> 
+        <div class="content has-text-centered">
+        <img src="./assets/framework.jpg" alt="geometric reasoning" width="100%"/>
+        <!-- <p> <b><i>Figure 1:</i></b> The main categories of our EgoThink benchmark to comprehensively assess the capability of thinking from a first-person perspective. </p> -->
+        </div>
+    <!-- </div> -->
+    <!-- </div> -->
+</div>
+</section>
+
+<section class="section">
+    <div class="container" style="margin-bottom: 2vh;">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">🔔News</h2>
+          <div class="content has-text-justified">
+            <p>
+              <b>🔥[2024-01-16]: Our paper <a href="https://openreview.net/forum?id=j5JvZCaDM0">Safe Offline Reinforcement Learning with Feasibility-Guided Diffusion Model</a> has been accepted by ICLR 2024.</b>
+              <!-- <b>[2023-11-27]: Our evaluation server for the test set is now available on <a href="https://eval.ai/web/challenges/challenge-page/2179/overview">EvalAI</a>. We welcome all submissions and look forward to your participation! 😆</b> -->
+            </p>
+        </div>      
+          <h2 class="title is-3">Abstraction</h2>
+          <div class="content has-text-justified">
+            <p>
+                Safe offline reinforcement learning is a promising way to bypass risky online interactions towards safe policy learning. Most existing methods only enforce soft constraints, i.e., constraining safety violations in expectation below thresholds predetermined. This can lead to potentially unsafe outcomes, thus unacceptable in safety-critical scenarios.
+                An alternative is to enforce the hard constraint of zero violation. However, this can be challenging in offline setting, as it needs to strike the right balance among three highly intricate and correlated aspects: safety constraint satisfaction, reward maximization, and behavior regularization imposed by offline datasets.
+                Interestingly, we discover that via reachability analysis of safe-control theory, the hard safety constraint can be equivalently translated to identifying the largest feasible region given the offline dataset. This seamlessly converts the original trilogy problem to a feasibility-dependent objective, i.e., maximizing reward value within the feasible region while minimizing safety risks in the infeasible region. Inspired by these, we propose FISOR (FeasIbility-guided Safe Offline RL), which allows safety constraint adherence, reward maximization, and offline policy learning to be realized via three decoupled processes, while offering strong safety performance and stability. In FISOR, the optimal policy for the translated optimization problem can be derived in a special form of weighted behavior cloning, which can be effectively extracted with a guided diffusion model thanks to its expressiveness. Moreover, we propose a novel energy-guided sampling method that does not require training a complicated time-dependent classifier to simplify the training.
+                We compare FISOR against baselines on DSRL benchmark for safe offline RL. Evaluation results show that FISOR is the only method that can guarantee safety satisfaction in all tasks, while achieving top returns in most tasks.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Abstract. -->
+  </div>
+</section>
+
+</body>
