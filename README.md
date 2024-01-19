@@ -1,6 +1,6 @@
-# Feasibility-Guided Safe Offline Reinforcement Learning
+# Safe Offline Reinforcement Learning with Feasibility-Guided Diffusion Model
 
-The official implementation of FISOR ([https://openreview.net/forum?id=j5JvZCaDM0](https://openreview.net/forum?id=j5JvZCaDM0)), which **represents a pioneering effort in considering hard constraints (Hamilton-Jacobi Reachability) within the safe offline RL setting**. FISOR transform the original tightly-coupled safety-constrained offline RL problem into
+The official implementation of FISOR ([https://openreview.net/forum?id=j5JvZCaDM0](https://openreview.net/forum?id=j5JvZCaDM0)), which **represents a pioneering effort in considering hard constraints (Hamilton-Jacobi Reachability) within the safe offline RL setting**. FISOR transforms the original tightly-coupled safety-constrained offline RL problem into
 three decoupled simple supervised objectives: 
 
 - Offline identification of the largest feasible region;
@@ -56,7 +56,7 @@ Then visualize the feasible region by running [viz_map.py](https://github.com/Zh
 If you find our code and paper can help, please cite our paper as:
 ```
 @inproceedings{zheng2024feasibility,
-  title={Feasibility-Guided Safe Offline Reinforcement Learning},
+  title={Safe Offline Reinforcement Learning with Feasibility-Guided Diffusion Model},
   author={Zheng, Yinan and Li, Jianxiong and Yu, Dongjie and Yang, Yujie and Li, Shengbo Eben and Zhan, Xianyuan and Liu, Jingjing},
   booktitle={The Twelfth International Conference on Learning Representations},
   year={2024},
