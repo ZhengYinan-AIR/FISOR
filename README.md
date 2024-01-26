@@ -1,10 +1,11 @@
 # Safe Offline Reinforcement Learning with Feasibility-Guided Diffusion Model <img src="assets/icon.png" width="50">
+International Conference on Learning Representation (ICLR), 2024
+
+[**[Project Page]**](https://zhengyinan-air.github.io/FISOR/) [**[Arxiv]**](https://arxiv.org/pdf/2401.10700.pdf) [**[Openreview]**](https://openreview.net/forum?id=j5JvZCaDM0)
+
+[Yinan Zheng*](https://scholar.google.com/citations?user=mHXjEbQAAAAJ&hl=zh-CN&authuser=1), [Jianxiong Li*](https://facebear-ljx.github.io/), [Dongjie Yu](https://manutdmoon.github.io/), [Yujie Yang](https://yangyujie-jack.github.io/), [Shengbo Eben Li](https://scholar.google.com/citations?user=Dxiw1K8AAAAJ&hl=zh-CN), [Xianyuan Zhan](https://zhanzxy5.github.io/zhanxianyuan/), [Jingjing Liu](https://air.tsinghua.edu.cn/en/info/1046/1194.htm)
 
 The official implementation of FISOR, which **represents a pioneering effort in considering hard constraints (Hamilton-Jacobi Reachability) within the safe offline RL setting**. 
-
-- Project Page: [https://zhengyinan-air.github.io/FISOR/](https://zhengyinan-air.github.io/FISOR/)
-- Arxiv Paper: [https://arxiv.org/pdf/2401.10700.pdf](https://arxiv.org/pdf/2401.10700.pdf)
-- Openreview: [https://openreview.net/forum?id=j5JvZCaDM0](https://openreview.net/forum?id=j5JvZCaDM0)
 
 # Methods
 FISOR transforms the original tightly-coupled safety-constrained offline RL problem into
