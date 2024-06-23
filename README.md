@@ -63,11 +63,13 @@ Then visualize the feasible region by running [viz_map.py](https://github.com/Zh
 
 If you find our code and paper can help, please cite our paper as:
 ```
-@article{zheng2024safe,
-  title={Safe Offline Reinforcement Learning with Feasibility-Guided Diffusion Model},
-  author={Zheng, Yinan and Li, Jianxiong and Yu, Dongjie and Yang, Yujie and Li, Shengbo Eben and Zhan, Xianyuan and Liu, Jingjing},
-  journal={arXiv preprint arXiv:2401.10700},
-  year={2024}
+@inproceedings{
+zheng2024safe,
+title={Safe Offline Reinforcement Learning with Feasibility-Guided Diffusion Model},
+author={Yinan Zheng and Jianxiong Li and Dongjie Yu and Yujie Yang and Shengbo Eben Li and Xianyuan Zhan and Jingjing Liu},
+booktitle={The Twelfth International Conference on Learning Representations},
+year={2024},
+url={https://openreview.net/forum?id=j5JvZCaDM0}
 }
 ```
 
