@@ -5,7 +5,12 @@ International Conference on Learning Representation (ICLR), 2024
 
 [Yinan Zheng*](https://scholar.google.com/citations?user=mHXjEbQAAAAJ&hl=zh-CN&authuser=1), [Jianxiong Li*](https://facebear-ljx.github.io/), [Dongjie Yu](https://manutdmoon.github.io/), [Yujie Yang](https://yangyujie-jack.github.io/), [Shengbo Eben Li](https://scholar.google.com/citations?user=Dxiw1K8AAAAJ&hl=zh-CN), [Xianyuan Zhan](https://zhanzxy5.github.io/zhanxianyuan/), [Jingjing Liu](https://air.tsinghua.edu.cn/en/info/1046/1194.htm)
 
-The official implementation of FISOR, which **represents a pioneering effort in considering hard constraints (Hamilton-Jacobi Reachability) within the safe offline RL setting**. 
+🔥 The official implementation of FISOR, which **represents a pioneering effort in considering hard constraints (Hamilton-Jacobi Reachability) within the safe offline RL setting**. 
+
+🔥 **It is truly exciting that FISOR has already been applied in several practical applications:**
+- Safety-Critical Scenarios Generation
+- Data Center Cooling System Optimization
+- Collision Avoidance Control
 
 # Methods
 FISOR transforms the original tightly-coupled safety-constrained offline RL problem into
