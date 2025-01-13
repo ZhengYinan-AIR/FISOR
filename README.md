@@ -45,8 +45,7 @@ Run
 export XLA_PYTHON_CLIENT_PREALLOCATE=False
 python launcher/examples/train_offline.py --env_id 0 --config configs/train_config.py:fisor
 ```
-where ``env_id`` serves as an index for the [list of environments](https://github.com/ZhengYinan-AIR/FISOR/blob/master/env/env_list.py).
-
+where ``env_id`` serves as an index for the [list of environments](https://github.com/ZhengYinan-AIR/FISOR/blob/master/env/env_list.py). You can also refer to the [Wandb training logs](https://wandb.ai/zhengyinan-air/iclr2024-mainresult?nw=nwuserzhengyinanair) for main results.
 ## Data Quantity Experiments
 We can run [filter_data.py](https://github.com/ZhengYinan-AIR/FISOR/blob/master/filter_data.py) to generate offline data of varying volumes. We also can download the necessary offline datasets ([Download link](https://cloud.tsinghua.edu.cn/d/591cf8fd6d8649a89df4/)). Then run
 ``` Bash
